@@ -19,9 +19,22 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetch('http://localhost:8080/currency')
-      const json = await data.json()
-      setCurrencyRate(json.exchange_rate)
+      try {
+        const data = await fetch('http://localhost:8080/currency')
+        if (data.status !== 200) {
+          alert(
+            'Something went wrong with the data fetching, please refresh the page'
+          ) //proper Error Handling should be covered in the next steps
+        }
+
+        const json = await data.json()
+
+        setCurrencyRate(json.exchange_rate)
+      } catch (error) {
+        alert(
+          'Something went wrong with the data fetching, please refresh the page'
+        ) //proper Error Handling should be covered in the next steps
+      }
     }
     fetchData()
   }, [])
