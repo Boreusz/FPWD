@@ -12,20 +12,18 @@ export default function Home() {
     if (!currencyRate) {
       alert('Currency rate is not defined, please refresh the page')
     } else {
-      const result = parseInt(amount) * parseInt(currencyRate)
-      setResult(result.toString())
+      const result = parseFloat(amount) * parseFloat(currencyRate)
+      setResult(result.toFixed(2).toString())
     }
   }
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetch('http://localhost:3001')
+      const data = await fetch('http://localhost:8080/currency')
       const json = await data.json()
-      setCurrencyRate(json.rate)
+      setCurrencyRate(json.exchange_rate)
     }
-    setTimeout(() => {
-      setCurrencyRate('12')
-    }, 500)
+    fetchData()
   }, [])
 
   if (!currencyRate) {
@@ -47,6 +45,18 @@ export default function Home() {
         <h2 className='text-2xl font-bold text-gray-800 dark:text-white mb-6'>
           EUR to PLN Converter
         </h2>
+
+        <div className='mb-6 p-4 bg-blue-100 dark:bg-blue-900 rounded-md'>
+          <h3 className='text-lg font-semibold text-blue-800 dark:text-blue-200 mb-2'>
+            Current Exchange Rate
+          </h3>
+          <p className='text-blue-700 dark:text-blue-300'>
+            1 EUR = {(+currencyRate).toFixed(2)} PLN
+          </p>
+          <p className='text-blue-700 dark:text-blue-300'>
+            1 PLN = {(1 / +currencyRate).toFixed(2)} EUR
+          </p>
+        </div>
         <div className='space-y-4'>
           <div>
             <label
