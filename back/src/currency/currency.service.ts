@@ -15,7 +15,7 @@ export class CurrencyService implements OnApplicationBootstrap {
       {
         method: 'GET',
         headers: {
-          'x-api-key': 'DInGz8W0Wr8t0fYAY21ddL2JMmZ2uHT1hxAxUSTa',
+          'x-api-key': process.env.API_KEY,
         },
       },
     );
