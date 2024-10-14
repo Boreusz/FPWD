@@ -71,7 +71,13 @@ export default function Home() {
               className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white'
               placeholder='Enter amount in EUR'
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={(e) => {
+                if (parseFloat(e.target.value) < 0) {
+                  setAmount('0')
+                } else {
+                  setAmount(e.target.value)
+                }
+              }}
             />
           </div>
           <div className='grid grid-cols-2 gap-4'>
